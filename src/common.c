@@ -924,34 +924,6 @@ g_list_replace( GList *list, gpointer old_data, gpointer new_data )
 }
 
 
-/* GLib-style routine. Inserts a new element "data" into a list, before the
- * element "before_data". If "before_data" is NULL, then the new element is
- * added to the end of the list. Returns the updated list */
-GList *
-g_list_insert_before( GList *list, gpointer before_data, gpointer data )
-{
-	GList *before_llink;
-	GList *new_llink;
-	GList *updated_list;
-
-	g_return_val_if_fail( list != NULL, NULL );
-
-	if (before_data == NULL)
-		updated_list = g_list_append( list, data );
-	else {
-		before_llink = g_list_find( list, before_data );
-		g_return_val_if_fail( before_llink != NULL, list );
-		new_llink = g_list_prepend( before_llink, data );
-		if (before_llink == list)
-			updated_list = new_llink;
-		else
-			updated_list = list;
-	}
-
-	return updated_list;
-}
-
-
 /* The wrong way out */
 void
 quit( char *message )

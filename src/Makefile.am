@@ -59,7 +59,6 @@ fsv_SOURCES = \
 
 fsv_LDADD = \
 	$(DEBUG_LIBS) \
-	$(top_builddir)/lib/libgnomeui.a \
 	$(top_builddir)/lib/libmisc.a \
 	@GTKGL_LIBS@ \
 	@GL_LIBS@ \
