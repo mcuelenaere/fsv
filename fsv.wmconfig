@@ -1,0 +1,4 @@
+fsv name "fsv"
+fsv description "3D File System Visualizer"
+fsv group Miscellaneous
+fsv exec "fsv &"

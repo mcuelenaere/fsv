@@ -1,0 +1,57 @@
+1999 Jan 27
+
+* Put content in README and INSTALL.
+
+* Write NVStore/uXML backend (or find a suitable existing one) to store
+configuration parameters in ~/.fsvrc.
+
+(The rc file should use XML formatting, but I don't want fsv to link
+against libxml/expat to do this-- those libs are overkill. uXML is a tiny
+yacc/lex-based XML I/O library I started writing for just this purpose,
+but that will take some time to mature. Anyone know of a good, clean, <50K
+DOM-based XML parser/generator library for C?)
+
+* Rewrite the MapV layout algorithm. Currently, it works, but doesn't
+generate very optimal layouts-- some nodes are too wide, some too tall,
+and the ones in the frontmost row/rows invariably turn out paper-thin.
+
+I've discussed an alternate approach with a friend of mine (hi Louis!),
+one heuristically based that would run slightly slower but give much
+better (even if not provably optimal) solutions. I'm definitely open to
+ideas here. It's a rather tricky CS problem.
+
+* Implement a somewhat smarter node pointing/selection handler for faraway
+nodes (e.g. when in bird's-eye view mode). Right now, it gives you exactly
+the node that is under the cursor's hotspot-- even if it's so small you
+can barely see it. fsv should instead return an ancestor node, that is
+larger than a set pixel-based minimum.
+
+* Replace the bulk of GTK+ cruft (see dialog.c/gui.c/window.c) with
+Glade-generated code, to improve view abstraction. All of the main
+window's callbacks have already been moved into callbacks.[hc]. Still need
+to figure out 1) if/how Glade can handle compiled-in XPM's; 2) how to set
+up the GtkGLArea widget, which isn't directly supported; 3) how to specify
+the minimum window size as a proportion of screen width (as opposed to
+giving absolute pixel dimensions-- ick!)
+
+* Implement a better way of bringing up the online help. I'm almost
+embarrassed by the cheap /bin/sh hack currently employed :] (Not to
+mention it leaves zombie processes hanging around until the main program
+terminates-- bad bad bad!)
+
+* Perhaps add scan caching. This would store the complete state of a
+directory tree (say, /usr/lib as an example) in ~/.fsvcache/@usr@lib, and
+the next time fsv is invoked there, it loads the cache and skims through
+all the subdirectories, only scanning those with an updated timestamp.
+(Result: much faster loading of '/' and the like)
+
+ColorByTimestamp mode could take the time of the previous scan as the
+start point of the temporal spectrum, allowing something of a "graphical
+diff" on the state of the filesystem.
+
+* Add a way to have fsv not scan certain directories, such as top-level
+AFS mount points (stat'ing those can take *centuries*)
+
+* Oh, and did I mention I'm taking 6.170 this semester...? :-) Some of the
+core modules (camera.c/geometry.c) could probably stand some improvement,
+and by the time summer comes around, I should have a good idea how!

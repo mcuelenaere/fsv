@@ -1,0 +1,445 @@
+<HTML
+><HEAD
+><TITLE
+>Menus</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.44"><LINK
+REL="HOME"
+TITLE="fsv - 3D File System Visualizer"
+HREF="t1.html"><LINK
+REL="PREVIOUS"
+TITLE="Using the mouse"
+HREF="mouse.html"><LINK
+REL="NEXT"
+TITLE="About fsv"
+HREF="about.html"></HEAD
+><BODY
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>fsv - 3D File System Visualizer</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="mouse.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="about.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="MENUS"
+>Menus</A
+></H1
+><P
+>This section documents the various items accessible from <I
+CLASS="EMPHASIS"
+>fsv</I
+>'s top menu bar.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN162"
+><SPAN
+CLASS="GUIMENU"
+>File</SPAN
+></A
+></H2
+><P
+></P
+><DL
+><DT
+><SPAN
+CLASS="GUIMENUITEM"
+>Change root...</SPAN
+></DT
+><DD
+><P
+>Restarts <I
+CLASS="EMPHASIS"
+>fsv</I
+> in a different root directory. This brings up a directory selection dialog, and once a directory is specified, <I
+CLASS="EMPHASIS"
+>fsv</I
+> will perform another scan and generate new file system geometry accordingly.</P
+></DD
+><DT
+><SPAN
+CLASS="GUIMENUITEM"
+>Exit</SPAN
+></DT
+><DD
+><P
+>Quits the program.</P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN178"
+><SPAN
+CLASS="GUIMENU"
+>Vis</SPAN
+></A
+></H2
+><P
+>This menu allows you to choose between <I
+CLASS="EMPHASIS"
+>fsv</I
+>'s various visualization modes. Each of these is a different approach to representing a file system. When you switch from one mode to another, the camera will automatically home in on the same node it was looking at before.</P
+><P
+></P
+><DL
+><DT
+><SPAN
+CLASS="GUIMENUITEM"
+>MapV</SPAN
+></DT
+><DD
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="mapv.png"
+></IMG
+></P
+></DIV
+><P
+>Each node is a block which sits on top of its parent directory. (Viewed from above, it is basically a Venn diagram). The area covered by each block is proportional to the size of the corresponding file system node.</P
+></DD
+><DT
+><SPAN
+CLASS="GUIMENUITEM"
+>TreeV</SPAN
+></DT
+><DD
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="treev.png"
+></IMG
+></P
+></DIV
+><P
+>Nodes are separated into two categories: platforms and leaves. Platforms are directories which have been expanded for viewing; everything else is a leaf, which sits on some platform. The platforms are connected by branches, reflecting the file system's directory structure. The height of a leaf node indicates its size.</P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN200"
+><SPAN
+CLASS="GUIMENU"
+>Colors</SPAN
+></A
+></H2
+><P
+>This menu controls how colors are assigned to nodes.</P
+><P
+></P
+><DL
+><DT
+><SPAN
+CLASS="GUIMENUITEM"
+>By node type</SPAN
+></DT
+><DD
+><P
+>Assigns colors according to each node's file system entity type, which can be one of the following:</P
+><P
+></P
+><UL
+><LI
+><P
+><I
+CLASS="FIRSTTERM"
+>Directory</I
+> - Also known as a "folder"</P
+></LI
+><LI
+><P
+><I
+CLASS="FIRSTTERM"
+>Regular file</I
+> - Most nodes are of this type</P
+></LI
+><LI
+><P
+><I
+CLASS="FIRSTTERM"
+>Symbolic link</I
+> - These just point to another file</P
+></LI
+><LI
+><P
+><I
+CLASS="FIRSTTERM"
+>Named pipe (FIFO)</I
+> - Very rare</P
+></LI
+><LI
+><P
+><I
+CLASS="FIRSTTERM"
+>Network socket</I
+> - Even rarer</P
+></LI
+><LI
+><P
+><I
+CLASS="FIRSTTERM"
+>Character device</I
+> - Found in <TT
+CLASS="FILENAME"
+>/dev</TT
+></P
+></LI
+><LI
+><P
+><I
+CLASS="FIRSTTERM"
+>Block device</I
+> - Also in <TT
+CLASS="FILENAME"
+>/dev</TT
+></P
+></LI
+><LI
+><P
+><I
+CLASS="FIRSTTERM"
+>Unknown</I
+> - ???</P
+></LI
+></UL
+></DD
+><DT
+><SPAN
+CLASS="GUIMENUITEM"
+>By timestamp</SPAN
+></DT
+><DD
+><P
+>Assigns colors from a continuous spectrum representing time. The default setup employs a rainbow spectrum, coloring new files red, somewhat older files green, much older files indigo/violet, and so forth. Nodes which are too old (or too new) to occur within the spectrum's time range are shown darkened.</P
+></DD
+><DT
+><SPAN
+CLASS="GUIMENUITEM"
+>By wildcards</SPAN
+></DT
+><DD
+><P
+>Assigns colors using a set of wildcard patterns. Each pattern is associated with a color, and may use the <TT
+CLASS="LITERAL"
+>?</TT
+> and <TT
+CLASS="LITERAL"
+>*</TT
+> characters to match against filenames. (An example would be <TT
+CLASS="LITERAL"
+>*.html</TT
+>). If a node's filename matches a pattern, then the color of that pattern is used to draw the node. If a filename does not match any patterns, a default color is used.</P
+><P
+>By convention, a <TT
+CLASS="LITERAL"
+>?</TT
+> (question mark) matches any single character, and a <TT
+CLASS="LITERAL"
+>*</TT
+> (asterisk) matches any group of characters. To give an example, <TT
+CLASS="LITERAL"
+>?pple</TT
+> will match against <TT
+CLASS="LITERAL"
+>apple</TT
+>, but not <TT
+CLASS="LITERAL"
+>snapple</TT
+>. Alternately, <TT
+CLASS="LITERAL"
+>*pple</TT
+> will match <TT
+CLASS="LITERAL"
+>pple</TT
+>, <TT
+CLASS="LITERAL"
+>apple</TT
+>, <TT
+CLASS="LITERAL"
+>snapple</TT
+>, and <TT
+CLASS="LITERAL"
+>thebigapple</TT
+>. Neither of these patterns, however, will match <TT
+CLASS="LITERAL"
+>appleseed</TT
+>.</P
+><P
+>This feature may be used to assign colors to files based on the filename extension. A pattern of (for example) <TT
+CLASS="LITERAL"
+>*.jpg</TT
+> will against all files having the <TT
+CLASS="LITERAL"
+>.jpg</TT
+> extension in their names (which, by convention, should be JPEG image files).</P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>Note: </B
+>Matching is performed on a case-sensitive basis. Thus, the pattern <TT
+CLASS="LITERAL"
+>*.jpg</TT
+> is not the same as <TT
+CLASS="LITERAL"
+>*.JPG</TT
+>.</P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="GUIMENUITEM"
+>Setup...</SPAN
+></DT
+><DD
+><P
+>Brings up a setup dialog for the various color modes. [The dialog has yet to be documented]</P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN274"
+><SPAN
+CLASS="GUIMENU"
+>Help</SPAN
+></A
+></H2
+><P
+></P
+><DL
+><DT
+><SPAN
+CLASS="GUIMENUITEM"
+>Contents...</SPAN
+></DT
+><DD
+><P
+>Launches a help browser.</P
+></DD
+><DT
+><SPAN
+CLASS="GUIMENUITEM"
+>About...</SPAN
+></DT
+><DD
+><P
+>Gives authorship and version information for the program.</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="mouse.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="t1.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="about.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using the mouse</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>About fsv</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

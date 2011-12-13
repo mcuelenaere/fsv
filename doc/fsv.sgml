@@ -1,0 +1,453 @@
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
+
+<article>
+
+<artheader>
+<date>20 November 1999</date>
+<title>fsv - 3D File System Visualizer</title>
+<author>
+<firstname>Daniel</firstname>
+<othername>Richard</othername>
+<surname>G.</surname>
+</author>
+<copyright>
+<year>1999</year>
+<holder>Daniel Richard G.</holder>
+</copyright>
+</artheader>
+
+
+<sect1 id="intro"><title>Introduction</title>
+
+<para>
+<emphasis>fsv</emphasis> offers an intuitive, visual means of overviewing the layout and content of a file system. It translates a mass of information about files and directories (such as relative sizes) into geometry, constructing a 3D representation which can be easily viewed and manipulated. Each distinct file system entity, or <firstterm>node</firstterm>-- be it a file, directory, symbolic link, device interface, etc.-- is given a geometric counterpart with representational properties.
+</para>
+
+<para>
+<emphasis>fsv</emphasis>'s user interface consists of two main components:
+
+<itemizedlist>
+
+<listitem><para>
+A <link linkend="dirtree">directory tree</link> / <link linkend="filelist">file list</link> browser, as seen in many file manager programs, and
+</para></listitem>
+
+<listitem><para>
+a <link linkend="viewport">graphical viewport</link> for viewing file system geometry.
+</para></listitem>
+
+</itemizedlist>
+
+The functionality of these are closely linked together, for a simple yet flexible means of browsing the file system.
+</para>
+
+</sect1>
+
+
+<sect1 id="startup"><title>Startup</title>
+
+<sect2 id="usage"><title>Command-line arguments</title>
+
+<para>
+When <emphasis>fsv</emphasis> is invoked with the <option>--help</option> option, it prints out a usage summary:
+</para>
+
+<para><screen>
+<prompt>bash$</prompt> <userinput>fsv --help</userinput>
+
+fsv - 3D File System Visualizer
+      Version 0.9
+Copyright (C)1999 Daniel Richard G. &lt;skunk@mit.edu&gt;
+
+Usage: fsv [rootdir] [options]
+  rootdir      Root directory for visualization
+               - (defaults to current directory)
+  --mapv       Start in MapV mode (default)
+  --treev      Start in TreeV mode
+  --help       Print this help and exit
+
+</screen></para>
+
+<variablelist><title>Options and arguments</title>
+
+<varlistentry><term><replaceable>rootdir</replaceable></term>
+<listitem>
+<para>
+Specifies the base of the directory tree for <emphasis>fsv</emphasis> to work in. Everything inside this directory will be scanned, and subsequently translated into geometry.
+</para>
+<para>
+If no value is given, <emphasis>fsv</emphasis> works in the directory it is invoked from.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><option>--mapv</option></term>
+<listitem><para>
+Starts the program in MapV visualization mode. (This is the default)
+</para></listitem>
+</varlistentry>
+
+<varlistentry><term><option>--treev</option></term>
+<listitem><para>
+Starts the program in TreeV visualization mode.
+</para></listitem>
+</varlistentry>
+
+<varlistentry><term><option>--help</option></term>
+<listitem><para>
+Prints out the <link linkend="usage">usage summary</link> and exits.
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2><title>Examples</title>
+
+<para>
+To give the TreeV view of everything under <filename class=directory>/usr</filename>:
+<screen>
+<prompt>bash$</prompt> <userinput>fsv /usr --treev &</userinput>
+</screen>
+</para>
+
+</sect2>
+
+</sect1>
+
+
+<sect1 id="window"><title>Main window</title>
+
+<mediaobject>
+<imageobject><imagedata fileref="window.png" format="png"></imageobject>
+</mediaobject>
+
+<sect2><title>Toolbar</title>
+
+<mediaobject>
+<imageobject><imagedata fileref="back.png" format="png"></imageobject>
+<textobject><phrase>First button</phrase></textobject>
+</mediaobject>
+<para>
+Sends the camera back to the node it was viewing previously.
+</para>
+
+<mediaobject>
+<imageobject><imagedata fileref="cd-root.png" format="png"></imageobject>
+<textobject><phrase>Second button</phrase></textobject>
+</mediaobject>
+<para>
+Repositions the camera to view the root directory.
+</para>
+
+<mediaobject>
+<imageobject><imagedata fileref="cd-up.png" format="png"></imageobject>
+<textobject><phrase>Third button</phrase></textobject>
+</mediaobject>
+<para>
+Points the camera at a node one level closer to the root directory.
+</para>
+
+<mediaobject>
+<imageobject><imagedata fileref="beyeview.png" format="png"></imageobject>
+<textobject><phrase>Fourth button</phrase></textobject>
+</mediaobject>
+<para>
+Sends the camera soaring up for a bird's-eye view.
+</para>
+
+</sect2>
+
+<sect2 id="dirtree"><title>Directory tree</title>
+
+<mediaobject>
+<imageobject><imagedata fileref="dirtree.png" format="png"></imageobject>
+<textobject><phrase>(upper-left panel of the main program window)</phrase></textobject>
+</mediaobject>
+<para>
+The directory tree displays all or part of the currently loaded directory structure, indicating which directories are collapsed and which are expanded. The selected entry (<filename class=directory>linux</filename> in this example) indicates the current directory, whose contents are listed in the file list.
+</para>
+
+</sect2>
+
+<sect2 id="filelist"><title>File list</title>
+
+<mediaobject>
+<imageobject><imagedata fileref="filelist.png" format="png"></imageobject>
+<textobject><phrase>(lower-left panel of the main program window)</phrase></textobject>
+</mediaobject>
+<para>
+The file list displays the contents of the current directory. Each entry in the list corresponds to a file system node, and is paired with an icon indicating the node type.
+</para>
+
+</sect2>
+
+<sect2 id="viewport"><title>Graphical viewport</title>
+
+<mediaobject>
+<imageobject><imagedata fileref="viewport.png" format="png"></imageobject>
+<textobject><phrase>(right panel of the main program window)</phrase></textobject>
+</mediaobject>
+<para>
+This is where the real action happens! The viewport displays the camera view. The camera automatically repositions itself as necessary to observe the current node of interest, which is indicated by white box-corners (as shown above).
+</para>
+
+<para>
+The scrollbars may be used to move the camera around; the permitted range of motion depends on the camera's position and the current node.
+</para>
+
+</sect2>
+
+</sect1>
+
+
+<sect1 id="mouse"><title>Using the mouse</title>
+
+<para>
+<emphasis>fsv</emphasis>'s user interface relies heavily on the mouse. Mouse functionality differs only slightly between the left and right panes of the <link linkend="window">main program window</link>.
+</para>
+
+<para>
+In the <link linkend="dirtree">directory tree</link> / <link linkend="filelist">file list</link> area (left pane):
+</para>
+
+<itemizedlist>
+
+<listitem><para>
+The <mousebutton>left</mousebutton> button selects a node entry.
+</para></listitem>
+
+<listitem><para>
+The <mousebutton>middle</mousebutton> button doesn't do anything.
+</para></listitem>
+
+<listitem><para>
+The <mousebutton>right</mousebutton> button brings up a context-sensitive menu for a node entry.
+</para></listitem>
+
+</itemizedlist>
+
+<para>
+In the <link linkend="viewport">graphical viewport</link> area (right pane):
+</para>
+
+<itemizedlist>
+
+<listitem><para>
+The <mousebutton>left</mousebutton> button selects a node, and sends the camera toward it.
+</para></listitem>
+
+<listitem><para>
+The <mousebutton>middle</mousebutton> button dollies the camera forward or backward. (click &amp; drag)
+</para></listitem>
+
+<listitem><para>
+The <mousebutton>right</mousebutton> button brings up a context-sensitive menu for a node.
+</para></listitem>
+
+</itemizedlist>
+
+</sect1>
+
+
+<sect1 id="menus"><title>Menus</title>
+
+<para>
+This section documents the various items accessible from <emphasis>fsv</emphasis>'s top menu bar.
+</para>
+
+<sect2><title><guimenu>File</guimenu></title>
+
+<variablelist>
+
+<varlistentry><term><guimenuitem>Change root...</guimenuitem></term>
+<listitem><para>
+Restarts <emphasis>fsv</emphasis> in a different root directory. This brings up a directory selection dialog, and once a directory is specified, <emphasis>fsv</emphasis> will perform another scan and generate new file system geometry accordingly.
+</para></listitem>
+</varlistentry>
+
+<varlistentry><term><guimenuitem>Exit</guimenuitem></term>
+<listitem><para>
+Quits the program.
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2><title><guimenu>Vis</guimenu></title>
+
+<para>
+This menu allows you to choose between <emphasis>fsv</emphasis>'s various visualization modes. Each of these is a different approach to representing a file system. When you switch from one mode to another, the camera will automatically home in on the same node it was looking at before.
+</para>
+
+<variablelist>
+
+<varlistentry><term><guimenuitem>MapV</guimenuitem></term>
+<listitem>
+<mediaobject>
+<imageobject><imagedata fileref="mapv.png" format="png"></imageobject>
+</mediaobject>
+<para>
+Each node is a block which sits on top of its parent directory. (Viewed from above, it is basically a Venn diagram). The area covered by each block is proportional to the size of the corresponding file system node.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><guimenuitem>TreeV</guimenuitem></term>
+<listitem>
+<mediaobject>
+<imageobject><imagedata fileref="treev.png" format="png"></imageobject>
+</mediaobject>
+<para>
+Nodes are separated into two categories: platforms and leaves. Platforms are directories which have been expanded for viewing; everything else is a leaf, which sits on some platform. The platforms are connected by branches, reflecting the file system's directory structure. The height of a leaf node indicates its size.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2><title><guimenu>Colors</guimenu></title>
+
+<para>
+This menu controls how colors are assigned to nodes.
+</para>
+
+<variablelist>
+
+<varlistentry><term><guimenuitem>By node type</guimenuitem></term>
+<listitem>
+<para>
+Assigns colors according to each node's file system entity type, which can be one of the following:
+</para>
+
+<itemizedlist>
+
+<listitem><para>
+<firstterm>Directory</firstterm> - Also known as a "folder"
+</para></listitem>
+
+<listitem><para>
+<firstterm>Regular file</firstterm> - Most nodes are of this type
+</para></listitem>
+
+<listitem><para>
+<firstterm>Symbolic link</firstterm> - These just point to another file
+</para></listitem>
+
+<listitem><para>
+<firstterm>Named pipe (FIFO)</firstterm> - Very rare
+</para></listitem>
+
+<listitem><para>
+<firstterm>Network socket</firstterm> - Even rarer
+</para></listitem>
+
+<listitem><para>
+<firstterm>Character device</firstterm> - Found in <filename class=directory>/dev</filename>
+</para></listitem>
+
+<listitem><para>
+<firstterm>Block device</firstterm> - Also in <filename class=directory>/dev</filename>
+</para></listitem>
+
+<listitem><para>
+<firstterm>Unknown</firstterm> - ???
+</para></listitem>
+
+</itemizedlist>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><guimenuitem>By timestamp</guimenuitem></term>
+<listitem><para>
+Assigns colors from a continuous spectrum representing time. The default setup employs a rainbow spectrum, coloring new files red, somewhat older files green, much older files indigo/violet, and so forth. Nodes which are too old (or too new) to occur within the spectrum's time range are shown darkened.
+</para></listitem>
+</varlistentry>
+
+<varlistentry><term><guimenuitem>By wildcards</guimenuitem></term>
+<listitem>
+<para>
+Assigns colors using a set of wildcard patterns. Each pattern is associated with a color, and may use the <literal>?</literal> and <literal>*</literal> characters to match against filenames. (An example would be <literal>*.html</literal>). If a node's filename matches a pattern, then the color of that pattern is used to draw the node. If a filename does not match any patterns, a default color is used.
+</para>
+
+<para>
+By convention, a <literal>?</literal> (question mark) matches any single character, and a <literal>*</literal> (asterisk) matches any group of characters. To give an example, <literal>?pple</literal> will match against <literal>apple</literal>, but not <literal>snapple</literal>. Alternately, <literal>*pple</literal> will match <literal>pple</literal>, <literal>apple</literal>, <literal>snapple</literal>, and <literal>thebigapple</literal>. Neither of these patterns, however, will match <literal>appleseed</literal>.
+</para>
+
+<para>
+This feature may be used to assign colors to files based on the filename extension. A pattern of (for example) <literal>*.jpg</literal> will against all files having the <literal>.jpg</literal> extension in their names (which, by convention, should be JPEG image files).
+</para>
+
+<note><para>
+Matching is performed on a case-sensitive basis. Thus, the pattern <literal>*.jpg</literal> is not the same as <literal>*.JPG</literal>.
+</para></note>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><guimenuitem>Setup...</guimenuitem></term>
+<listitem><para>
+Brings up a setup dialog for the various color modes. [The dialog has yet to be documented]
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2><title><guimenu>Help</guimenu></title>
+
+<variablelist>
+
+<varlistentry><term><guimenuitem>Contents...</guimenuitem></term>
+<listitem><para>
+Launches a help browser.
+</para></listitem>
+</varlistentry>
+
+<varlistentry><term><guimenuitem>About...</guimenuitem></term>
+<listitem><para>
+Gives authorship and version information for the program.
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
+
+<sect1 id="about"><title>About fsv</title>
+
+<para>
+<emphasis>fsv</emphasis> - 3D File System Visualizer
+</para>
+
+<para>
+<ulink url="http://fox.mit.edu/skunk/soft/fsv/">http://fox.mit.edu/skunk/soft/fsv/</ulink>
+</para>
+
+<para>
+Copyright &copy;1999 Daniel Richard G. <email>skunk@mit.edu</email>
+</para>
+
+<para>
+This program is free software; you can redistribute it and/or modify it under the terms of the <ulink url="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</ulink> as published by the <ulink url="http://www.fsf.org/">Free Software Foundation</ulink>; either version 2 of the License, or (at your option) any later version.
+</para>
+
+<para>
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+</para>
+
+<para>
+You should have received a copy of the GNU Lesser General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+</para>
+
+</sect1>
+
+</article>

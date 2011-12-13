@@ -1,0 +1,265 @@
+<HTML
+><HEAD
+><TITLE
+>Startup</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.44"><LINK
+REL="HOME"
+TITLE="fsv - 3D File System Visualizer"
+HREF="t1.html"><LINK
+REL="PREVIOUS"
+TITLE="fsv - 3D File System Visualizer"
+HREF="t1.html"><LINK
+REL="NEXT"
+TITLE="Main window"
+HREF="window.html"></HEAD
+><BODY
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>fsv - 3D File System Visualizer</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="t1.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="window.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="STARTUP"
+>Startup</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="USAGE"
+>Command-line arguments</A
+></H2
+><P
+>When <I
+CLASS="EMPHASIS"
+>fsv</I
+> is invoked with the <TT
+CLASS="OPTION"
+>--help</TT
+> option, it prints out a usage summary:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>bash$</TT
+> <TT
+CLASS="USERINPUT"
+><B
+>fsv --help</B
+></TT
+>
+
+fsv - 3D File System Visualizer
+      Version 0.9
+Copyright (C)1999 Daniel Richard G. &lt;skunk@mit.edu&gt;
+
+Usage: fsv [rootdir] [options]
+  rootdir      Root directory for visualization
+               - (defaults to current directory)
+  --mapv       Start in MapV mode (default)
+  --treev      Start in TreeV mode
+  --help       Print this help and exit&#13;</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+></P
+><DL
+><P
+><B
+>Options and arguments</B
+></P
+><DT
+><TT
+CLASS="REPLACEABLE"
+><I
+>rootdir</I
+></TT
+></DT
+><DD
+><P
+>Specifies the base of the directory tree for <I
+CLASS="EMPHASIS"
+>fsv</I
+> to work in. Everything inside this directory will be scanned, and subsequently translated into geometry.</P
+><P
+>If no value is given, <I
+CLASS="EMPHASIS"
+>fsv</I
+> works in the directory it is invoked from.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>--mapv</TT
+></DT
+><DD
+><P
+>Starts the program in MapV visualization mode. (This is the default)</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>--treev</TT
+></DT
+><DD
+><P
+>Starts the program in TreeV visualization mode.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>--help</TT
+></DT
+><DD
+><P
+>Prints out the <A
+HREF="startup.html#USAGE"
+>usage summary</A
+> and exits.</P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN64"
+>Examples</A
+></H2
+><P
+>To give the TreeV view of everything under <TT
+CLASS="FILENAME"
+>/usr</TT
+>:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>bash$</TT
+> <TT
+CLASS="USERINPUT"
+><B
+>fsv /usr --treev &#38;</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="t1.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="t1.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="window.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fsv - 3D File System Visualizer</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Main window</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,10 @@
+The Gnome files here were ripped out of libgnome and libgnomeui (in the
+gnome-libs tarball) and have been modified slightly:
+
+*: Removed trivial Gnome dependencies (BEGIN_GNOME_DECLS et. al.)
+
+gnome-color-picker: Hacked out the GdkImlib dependency. This widget now
+	works with pure GTK+, sans alpha rendering and dithering.
+
+gnome-dateedit: Contains a small hack to clear the popdown calendar after
+	a single-click date selection (instead of after a double-click).

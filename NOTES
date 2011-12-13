@@ -1,0 +1,33 @@
+Implementation notes
+====================
+
+(current as of fsv 0.9)
+
+
+The main event loop (gtk_main( )) is entered the end of the main( )
+procedure in fsv.c.
+
+Animation is triggered by the redraw( ) call, in animation.c. This
+hooks in animation_loop( ) as an idle loop, which in turn calls the
+top-level functions necessary to draw a single frame. These include:
+
+	animation.c:morph_iteration( )
+		updates values of dynamically changing variables
+
+	ogl_draw( )
+		resets GL state and calls geometry_draw( ), which
+		dispatches to the appropriate set of drawing functions
+		deep inside geometry.c
+
+	animation.c:framerate_iteration( )
+		called every time a frame is rendered; keeps tabs on
+		framerate
+
+	animation.c:scheduled_event_iteration( )
+		executes callbacks which have been previous registered to
+		fire after a given number of frames
+
+
+-----------------------------------------------------------------------
+I'm not sure what else to add here, but if I receive questions, I'll
+incorporate the answers in this document.

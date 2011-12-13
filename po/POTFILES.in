@@ -1,0 +1,10 @@
+# List of source files containing translatable strings
+
+src/about.c
+src/common.c
+src/dialog.c
+src/dirtree.c
+src/filelist.c
+src/fsv.c
+src/scanfs.c
+src/window.c
