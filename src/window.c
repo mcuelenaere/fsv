@@ -92,6 +92,7 @@ window_init( FsvMode fsv_mode )
 	main_window_w = gtk_window_new( GTK_WINDOW_TOPLEVEL );
 	gtk_window_set_title( GTK_WINDOW(main_window_w), "fsv" );
 	gtk_window_set_wmclass( GTK_WINDOW(main_window_w), "main", "fsv" );
+	gtk_window_set_policy( GTK_WINDOW(main_window_w), TRUE, TRUE, TRUE );
 	window_width = 3 * gdk_screen_width( ) / 4;
 	window_height = 2584 * window_width / 4181;
 	gtk_widget_set_usize( main_window_w, window_width, window_height );
