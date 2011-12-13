@@ -25,9 +25,6 @@
 #include <gtk/gtk.h>
 #include "gui.h"
 
-#include "gnome-color-picker.h"
-#include "gnome-dateedit.h"
-
 #include "animation.h"
 #include "ogl.h" /* ogl_widget_new( ) */
 
@@ -359,24 +356,30 @@ color_picker_cb( GtkWidget *colorpicker_w, unsigned int r, unsigned int g, unsig
 GtkWidget *
 gui_colorpicker_add( GtkWidget *parent_w, RGBcolor *init_color, const char *title, void (*callback)( ), void *callback_data )
 {
-	GtkWidget *colorpicker_w;
+	GtkWidget *colorbutton_w;
 
-	colorpicker_w = gnome_color_picker_new( );
-	gnome_color_picker_set_d( GNOME_COLOR_PICKER(colorpicker_w), init_color->r, init_color->g, init_color->b, 1.0 );
-	gnome_color_picker_set_title( GNOME_COLOR_PICKER(colorpicker_w), title );
-	gtk_signal_connect( GTK_OBJECT(colorpicker_w), "color_set", GTK_SIGNAL_FUNC(color_picker_cb), callback_data );
-	gtk_object_set_data( GTK_OBJECT(colorpicker_w), "user_callback", (void *)callback );
-	parent_child( parent_w, colorpicker_w );
+	colorbutton_w = gtk_color_button_new();
+	gui_colorpicker_set_color(colorbutton_w, init_color);
+	gtk_color_button_set_title(GTK_COLOR_BUTTON(colorbutton_w), title);
+	g_signal_connect(G_OBJECT(colorbutton_w), "color-set", G_CALLBACK(color_picker_cb), callback_data);
+	g_object_set_data(G_OBJECT(colorbutton_w), "user_callback", (void *)callback);
+	parent_child(parent_w, colorbutton_w);
 
-	return colorpicker_w;
+	return colorbutton_w;
 }
 
 
 /* Sets the color on a color picker widget */
 void
-gui_colorpicker_set_color( GtkWidget *colorpicker_w, RGBcolor *color )
+gui_colorpicker_set_color( GtkWidget *colorbutton_w, RGBcolor *color )
 {
-	gnome_color_picker_set_d( GNOME_COLOR_PICKER(colorpicker_w), color->r, color->g, color->b, 0.0 );
+	GdkColor gdk_color = {
+		.red	= color->r * sizeof(guint16),
+		.green	= color->g * sizeof(guint16),
+		.blue	= color->b * sizeof(guint16),
+	};
+
+	gtk_color_button_set_color(GTK_COLOR_BUTTON(colorbutton_w), &gdk_color);
 }
 
 
@@ -481,11 +484,11 @@ gui_dateedit_add( GtkWidget *parent_w, time_t the_time, void (*callback)( ), voi
 {
 	GtkWidget *dateedit_w;
 
-	dateedit_w = gnome_date_edit_new( the_time, TRUE, TRUE );
+	/*dateedit_w = gnome_date_edit_new( the_time, TRUE, TRUE );
 	gnome_date_edit_set_popup_range( GNOME_DATE_EDIT(dateedit_w), 0, 23 );
 	gtk_signal_connect( GTK_OBJECT(dateedit_w), "date_changed", GTK_SIGNAL_FUNC(callback), callback_data );
 	gtk_signal_connect( GTK_OBJECT(dateedit_w), "time_changed", GTK_SIGNAL_FUNC(callback), callback_data );
-	parent_child( parent_w, dateedit_w );
+	parent_child( parent_w, dateedit_w );*/
 
 	return dateedit_w;
 }
@@ -495,7 +498,8 @@ gui_dateedit_add( GtkWidget *parent_w, time_t the_time, void (*callback)( ), voi
 time_t
 gui_dateedit_get_time( GtkWidget *dateedit_w )
 {
-	return gnome_date_edit_get_date( GNOME_DATE_EDIT(dateedit_w) );
+	//return gnome_date_edit_get_date( GNOME_DATE_EDIT(dateedit_w) );
+	return 0;
 }
 
 
@@ -503,7 +507,7 @@ gui_dateedit_get_time( GtkWidget *dateedit_w )
 void
 gui_dateedit_set_time( GtkWidget *dateedit_w, time_t the_time )
 {
-	gnome_date_edit_set_time( GNOME_DATE_EDIT(dateedit_w), the_time );
+	//gnome_date_edit_set_time( GNOME_DATE_EDIT(dateedit_w), the_time );
 }
 
 
@@ -601,7 +605,7 @@ gui_keybind( GtkWidget *widget, char *keystroke )
 
 	if (GTK_IS_WINDOW(widget)) {
 		/* Attach keybindings */
-		gtk_accel_group_attach( accel_group, GTK_OBJECT(widget) );
+		gtk_window_add_accel_group(GTK_WINDOW(widget), accel_group);
 		accel_group = NULL;
 		return;
 	}
@@ -1077,11 +1081,13 @@ gui_text_area_add( GtkWidget *parent_w, const char *init_text )
 	GtkWidget *text_area_w;
 
 	/* Text (area) widget */
-	text_area_w = gtk_text_new( NULL, NULL );
-	gtk_text_set_editable( GTK_TEXT(text_area_w), FALSE );
-	gtk_text_set_word_wrap( GTK_TEXT(text_area_w), TRUE );
-	if (init_text != NULL)
-		gtk_text_insert( GTK_TEXT(text_area_w), NULL, NULL, NULL, init_text, -1 );
+	text_area_w = gtk_text_view_new();
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(text_area_w), FALSE);
+	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(text_area_w), GTK_WRAP_WORD);
+	if (init_text != NULL) {
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(text_area_w));
+		gtk_text_buffer_set_text(buffer, init_text, -1);
+	}
 	parent_child( parent_w, text_area_w );
 
 	return text_area_w;
@@ -1162,7 +1168,7 @@ gui_dialog_window( const char *title, void (*close_callback)( ) )
 {
 	GtkWidget *window_w;
 
-	window_w = gtk_window_new( GTK_WINDOW_DIALOG );
+	window_w = gtk_window_new( GTK_WINDOW_TOPLEVEL );
 	gtk_window_set_policy( GTK_WINDOW(window_w), FALSE, FALSE, FALSE );
 	gtk_window_set_position( GTK_WINDOW(window_w), GTK_WIN_POS_CENTER );
 	gtk_window_set_title( GTK_WINDOW(window_w), title );
