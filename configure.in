@@ -31,7 +31,7 @@ AC_TYPE_MODE_T
 AC_TYPE_UID_T
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T
-AC_CHECK_TYPE(comparison_fn_t, int (*)( const void *, const void * ))
+AC_CHECK_TYPE(comparison_fn_t, , AC_DEFINE_UNQUOTED(comparison_fn_t, int (*)( const void *, const void * )))
 AC_STRUCT_ST_BLOCKS
 AC_STRUCT_TM
 
@@ -140,12 +140,15 @@ else
 	GTKGL_LDOPTS="" 
 fi
 
-AC_CHECK_LIB(gtkgl, gtk_gl_area_new, gtkgl_ok=yes, , ${GTKGL_LDOPTS} ${GTK_LIBS} ${GL_LIBS})
+AC_CHECK_LIB(gtkgl, gtk_gl_area_new, gtkgl_ok=v1, , ${GTKGL_LDOPTS} ${GTK_LIBS} ${GL_LIBS})
+AC_CHECK_LIB(gtkgl-2.0, gtk_gl_area_new, gtkgl_ok=v2, , ${GTKGL_LDOPTS} ${GTK_LIBS} ${GL_LIBS})
 
-if test "$gtkgl_ok" = "yes" ; then
+if test "$gtkgl_ok" = "v1" ; then
 	GTKGL_LIBS="$GTKGL_LDOPTS -lgtkgl"
+elif test "$gtkgl_ok" = "v2" ; then
+    GTKGL_LIBS="$GTKGL_LDOPTS -lgtkgl-2.0"
 else
-	AC_MSG_ERROR([Cannot find gtkglarea])
+    AC_MSG_ERROR([Cannot find gtkglarea])
 fi
 AC_SUBST(GTKGL_CFLAGS)
 AC_SUBST(GTKGL_LIBS)
