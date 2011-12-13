@@ -84,7 +84,8 @@ fi
 AC_SUBST(docdir)
 
 # GTK+ libraries
-AM_PATH_GTK(1.2.1, , AC_MSG_ERROR([Cannot find proper GTK+ version]))
+PKG_CHECK_MODULES([GTK], [gtk+-2.0])
+PKG_CHECK_MODULES([GLIB], [glib-2.0])
 
 #### OpenGL/Mesa3D libraries ####
 AC_ARG_WITH(GL-prefix,  [  --with-GL-prefix=PFX    Prefix where GL/MesaGL is installed (optional)])
@@ -131,29 +132,7 @@ AC_SUBST(GL_LIBS)
 #### end of OpenGL/Mesa3D configuration ####
 
 #### GtkGLArea library ####
-AC_ARG_WITH(gtkgl-prefix, [  --with-gtkgl-prefix=PFX Prefix where GtkGLArea is installed (optional)])
-
-if test -n "$with_gtkgl_prefix" ; then
-	GTKGL_CFLAGS="-I$with_gtkgl_prefix/include"
-	GTKGL_LDOPTS="-L$with_gtkgl_prefix/lib"
-else
-	GTKGL_CFLAGS=""
-	GTKGL_LDOPTS="" 
-fi
-
-AC_CHECK_LIB(gtkgl, gtk_gl_area_new, gtkgl_ok=v1, , ${GTKGL_LDOPTS} ${GTK_LIBS} ${GL_LIBS})
-AC_CHECK_LIB(gtkgl-2.0, gtk_gl_area_new, gtkgl_ok=v2, , ${GTKGL_LDOPTS} ${GTK_LIBS} ${GL_LIBS})
-
-if test "$gtkgl_ok" = "v1" ; then
-	GTKGL_LIBS="$GTKGL_LDOPTS -lgtkgl"
-elif test "$gtkgl_ok" = "v2" ; then
-    GTKGL_LIBS="$GTKGL_LDOPTS -lgtkgl-2.0"
-else
-    AC_MSG_ERROR([Cannot find gtkglarea])
-fi
-AC_SUBST(GTKGL_CFLAGS)
-AC_SUBST(GTKGL_LIBS)
-#### end of GtkGLArea configuration ####
+PKG_CHECK_MODULES([GTKGL], [gtkgl-2.0])
 
 # Check for 'file' command
 AC_PATH_PROG(FILE_CMD, file)
