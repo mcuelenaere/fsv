@@ -1,0 +1,28 @@
+# automake files
+autom4te.cache
+aclocal.m4
+config.guess
+config.status
+config.sub
+config.h.in
+configure
+depcomp
+install-sh
+missing
+Makefile
+Makefile.in
+**/Makefile.in
+
+# make files
+config.h
+config.log
+**/.deps
+fsv.spec
+po/POTFILES
+stamp-h1
+
+# objects
+lib/*.o
+lib/*.a
+src/*.o
+src/fsv
