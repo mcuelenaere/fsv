@@ -42,6 +42,7 @@ AC_FUNC_FNMATCH
 AC_FUNC_STRFTIME
 AC_CHECK_FUNCS(getcwd gettimeofday mktime strcspn strdup strspn strtod strtoul)
 AC_REPLACE_FUNCS(scandir)
+AC_CHECK_LIB([m], [hypot])
 
 # Debugging
 AC_ARG_ENABLE(debug, [  --enable-debug          turn on debugging])
