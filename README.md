@@ -2,7 +2,11 @@ This repo is an update of [fsv](http://fsv.sourceforge.net/) for modern systems 
 
 > fsv (pronounced eff-ess-vee) is a file system visualizer in cyberspace. It lays out files and directories in three dimensions, geometrically representing the file system hierarchy to allow visual overview and analysis. fsv can visualize a modest home directory, a workstation's hard drive, or any arbitrarily large collection of files, limited only by the host computer's memory and graphics hardware.
 
-`fsv` was featured in Jurassic Park: ["It's a Unix system!"](https://www.youtube.com/watch?v=3HjOjvu6oKA). Original site has [screenshots](http://fsv.sourceforge.net/screenshots/).
+Its ancestor, SGI's `fsn` (pronounced "fusion") originated on IRIX and was prominently featured in Jurassic Park: ["It's a Unix system!"](https://www.youtube.com/watch?v=3HjOjvu6oKA). 
+
+[Screenshots](http://fsv.sourceforge.net/screenshots/) of the original clone are still available.
+
+Useful info and screenshots of the original SGI IRIX implementation are available on [siliconbunny](http://www.siliconbunny.com/fsn-the-irix-3d-file-system-tool-from-jurassic-park/).
 
 **Install**
 
