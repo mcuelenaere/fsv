@@ -5,7 +5,9 @@ config.guess
 config.status
 config.sub
 config.h.in
+config.h.in~
 configure
+compile
 depcomp
 install-sh
 missing
