@@ -102,7 +102,12 @@ else
 fi
 
 AC_CHECK_LIB(MesaGL, glBegin, have_MesaGL=yes, , $GTK_LIBS $GL_LDOPTS)
+AC_CHECK_HEADER(GL/glu.h, have_GLU="yes", have_GLU="no")
 AC_CHECK_LIB(GL,     glBegin, have_GL=yes,     , $GTK_LIBS $GL_LDOPTS)
+
+if test "$have_GLU" = "no" ; then
+                AC_MSG_ERROR([Missing OpenGL utility library])
+        fi
 
 if test "$with_lib_GL" = "yes" ; then
 	# Want to use '-lGL'
