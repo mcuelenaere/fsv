@@ -1,0 +1,29 @@
+language: c
+
+# unfortunately gtkgl is not allowed yet as an APT addon
+sudo: required
+dist: trusty
+
+compiler:
+  - clang
+  - gcc
+
+before_install:
+  - sudo apt-get install -y libgtkgl2.0-dev
+
+install:
+  - ./autogen.sh
+  - ./configure --prefix=/tmp/fsv
+  - make
+  - make install
+
+script:
+  - make check
+# TODO: we should run some tests here
+
+addons:
+  apt:
+    packages:
+      - libgtk2.0-dev
+      - libgl1-mesa-dev
+      - libglu1-mesa-dev
