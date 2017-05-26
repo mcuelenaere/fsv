@@ -19,7 +19,7 @@ Useful info and screenshots of the original SGI IRIX implementation are availabl
 
 1. Clone the repository
 2. Make a configure script: `./autogen.sh`
-3. Install dependencies (Ubuntu): `sudo apt-get install libgtk2.0-dev libgl1-mesa-dev gtkgl-2.0-dev libgtkgl2.0-dev libglu1-mesa-dev`
+3. Install dependencies (Ubuntu): `sudo apt-get install libgtk2.0-dev libgl1-mesa-dev libgtk2.0 libgtkgl2.0-dev libglu1-mesa-dev`
 4. Do the install dance:
 
     - ./configure
