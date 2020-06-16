@@ -28,7 +28,7 @@
 
 #include <gtk/gtk.h>
 #include <gtkgl/gdkgl.h>
-#include "getopt.h"
+#include <getopt.h>
 
 #include "about.h"
 #include "animation.h"

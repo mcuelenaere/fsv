@@ -40,8 +40,8 @@ AC_STRUCT_TM
 AC_FUNC_ALLOCA
 AC_FUNC_FNMATCH
 AC_FUNC_STRFTIME
-AC_CHECK_FUNCS(getcwd gettimeofday mktime strcspn strdup strspn strtod strtoul)
-AC_REPLACE_FUNCS(scandir)
+AC_CHECK_FUNCS(getcwd getopt_long gettimeofday mktime scandir strcspn strdup \
+	strspn strtod strtoul)
 AC_CHECK_LIB([m], [hypot])
 
 # Debugging
