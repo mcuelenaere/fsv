@@ -2,7 +2,9 @@
 
 [![travis ci](https://travis-ci.org/mcuelenaere/fsv.svg?branch=master)](https://travis-ci.org/mcuelenaere/fsv)
 
-This repo is a fork of [fsv](http://fsv.sourceforge.net/).
+NOTE: this project is **not** actively maintained.
+
+This repo is a fork of [fsv](http://fsv.sourceforge.net/), with some patches on top to align it more to the current state of affairs.
 The original author is [Daniel Richard G.](http://fox.mit.edu/skunk/), a former student of Computer Science at the MIT.
 
 **About fsv**
@@ -21,7 +23,6 @@ Useful info and screenshots of the original SGI IRIX implementation are availabl
 2. Make a configure script: `./autogen.sh`
 3. Install dependencies (Ubuntu): `sudo apt-get install libgtkgl2.0-dev libgl1-mesa-dev libglu1-mesa-dev`
 4. Do the install dance:
-
-    - ./configure
-	- make
-	- sudo make install
+    - `./configure`
+    - `make`
+    - `sudo make install`
