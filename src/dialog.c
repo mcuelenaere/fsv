@@ -1467,6 +1467,22 @@ properties_cb( GtkWidget *unused, GNode *node )
 	dialog_node_properties( node );
 }
 
+/* open this filesystem node using xdg-open */
+static void
+open_node( GtkWidget *unused, GNode *node )
+{
+	struct NodeInfo *node_info;
+	char strbuf[1024];
+	char strbuf1[1024];
+	int retval;
+	strcpy(strbuf,"xdg-open ");
+	node_info = get_node_info(node);
+	strcat (strbuf, node_info->prefix);
+	strcat (strbuf, "/");
+	strcat (strbuf, node_info->name);
+	system(strbuf);
+
+}
 
 void
 context_menu( GNode *node, GdkEventButton *ev_button )
@@ -1477,12 +1493,6 @@ context_menu( GNode *node, GdkEventButton *ev_button )
 	if (popup_menu_w != NULL) {
 		g_assert( GTK_IS_MENU(popup_menu_w) );
 		gtk_widget_destroy( popup_menu_w );
-	}
-
-	/* Check for the special case in which the menu has only one item */
-	if (!NODE_IS_DIR(node) && (node == globals.current_node)) {
-		dialog_node_properties( node );
-		return;
 	}
 
 	/* Create menu */
@@ -1498,7 +1508,9 @@ context_menu( GNode *node, GdkEventButton *ev_button )
 	}
 	if (node != globals.current_node)
 		gui_menu_item_add( popup_menu_w, _("Look at"), look_at_cb, node );
-	gui_menu_item_add( popup_menu_w, _("Properties"), properties_cb, node );
+		gui_menu_item_add( popup_menu_w, _("Properties"), properties_cb, node );
+		gui_menu_item_add( popup_menu_w, _("Open"), open_node, node );
+
 
 	gtk_menu_popup( GTK_MENU(popup_menu_w), NULL, NULL, NULL, NULL, ev_button->button, ev_button->time );
 }
