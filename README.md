@@ -18,10 +18,9 @@ Its ancestor, SGI's `fsn` (pronounced "fusion") originated on IRIX and was promi
 Useful info and screenshots of the original SGI IRIX implementation are available on [siliconbunny](http://www.siliconbunny.com/fsn-the-irix-3d-file-system-tool-from-jurassic-park/).
 
 **Install**
-
-1. Clone the repository
-2. Make a configure script: `./autogen.sh`
-3. Install dependencies (Ubuntu): `sudo apt-get install libgtkgl2.0-dev libgl1-mesa-dev libglu1-mesa-dev`
+1. Install dependencies (Ubuntu/Debian): `sudo apt-get install libgtkgl2.0-dev libgl1-mesa-dev libglu1-mesa-dev`
+2. Clone the repository
+3. Run the configure script: `./autogen.sh`
 4. Do the install dance:
     - `./configure`
     - `make`
